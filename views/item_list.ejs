@@ -1,0 +1,27 @@
+<%- include('./partials/header') -%>
+<h1 class="text-primary">Items</h1>
+
+    <% if(items.length) { %>
+        <% items.forEach((item,index) => {%>
+            <div class="d-flex align-items-end mt-2 ms-2">
+                <h3 class="me-5"><a class="link-none" href="<%=item.url%>"> <%= item.name %> </a></h3>
+                <span>£<%= item.price %></span>
+            </div>
+            <h5>Category: <a href="<%= item.category.url%>"><%= item.category.name%></a></h5>
+            <div class="mt-2">
+                <%= item.description %>
+            </div>
+            <div class="mt-2 d-flex align-items-end">
+                <a href="<%=item.url%>/update" class="link-none me-2">Update</a>
+                <a href="<%=item.url%>/delete" class="link-none text-danger">Delete</a>
+            </div>
+
+        <% })%>
+    <% } else { %>
+        <p class="mt-2">
+            <strong>There are no items.</strong>
+            <a href="/catalog/item/create">Create an item</a>
+        </p>
+        
+    <% } %>
+<%- include('./partials/footer') -%>

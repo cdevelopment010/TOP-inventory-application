@@ -3,7 +3,13 @@ const asyncHandler = require('express-async-handler');
 
 //Display list of items in Item
 exports.item_list = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Item List")
+    const items = await Item.find().populate("category").sort({name: 1}).exec();
+
+    res.render("item_list", {
+        title: "Items",
+        items: items,
+    })
+
 })
 
 //Display detail page of a Item GET

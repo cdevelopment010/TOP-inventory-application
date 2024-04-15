@@ -1,10 +1,12 @@
 const Category = require('../models/category');
 const Item = require('../models/item');
 const asyncHandler = require('express-async-handler');
+const { body, validationResult } = require("express-validator");
+
 
 exports.index = asyncHandler(async (req, res, next) => {
     // res.send("NOT IMPLEMENTED: Homepage");
-    const popularItems = await Item.find().limit(3);
+    const popularItems = await Item.find().limit(3).exec();
 
     res.render("index", {
         title: "TOP - Inventory Application", 
@@ -13,11 +15,11 @@ exports.index = asyncHandler(async (req, res, next) => {
 })
 
 exports.cateogry_list = asyncHandler(async (req, res, next) => {
+    const categories = await Category.find().exec();
+
     res.render("categories", {
         title: "Categories",
-        categories: [
-            {id: 1, name: "Cat 1", url: "/catalog/category/1"}
-        ]
+        categories: categories
     })
 })
 
@@ -28,13 +30,50 @@ exports.category_detail = asyncHandler(async (req, res, next) => {
 
 //Display form for creating a category GET
 exports.category_create_get = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Create Category GET")
+    res.render("category_form", {
+        title: "Create Category"
+    })
 })
 
 //Handle creating a category POST
-exports.category_create_post = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Create Category POST")
-})
+exports.category_create_post = [
+    body("name")
+        .trim()
+        .isLength({ min: 1})
+        .escape()
+        .withMessage("Category name must be specified"),
+    body("description")
+        .trim()
+        .isLength({min: 3})
+        .escape()
+        .withMessage("Category description must be specified"),
+    
+    asyncHandler(async (req, res, next) => {
+        //Extract the validation errors from a request.
+        const errors = validationResult(req);
+
+        const category = new Category({
+            name: req.body.name,
+            description: req.body.description,
+        });
+
+        if (!errors.isEmpty()){
+            //There are errors. 
+            // send data back to form
+            res.render("category_form", {
+                title: "Create category",
+                category: category,
+                errors: errors.array(),
+            })
+            return;
+        } else {
+            // data is valid. save and redirect to detail.
+            await category.save();
+            res.redirect(category.url);
+        }
+
+    })
+]
 
 
 //Display category delete form on GET
