@@ -1,0 +1,20 @@
+<%- include('./partials/header') -%>
+<h1>Categories</h1>
+
+    <% if(categories.length) { %>
+        <% categories.forEach((cat,index) => {%>
+            <div class="d-flex align-items-end mt-2 ms-2">
+                <h3 class="me-5"><a class="link-none" href="<%=cat.url%>"> <%= cat.name %> </a></h3>
+                <a href="<%=cat.url%>/update" class="link-none me-2">Update</a>
+                <a href="<%=cat.url%>/delete" class="link-none text-danger">Delete</a>
+            </div>
+
+        <% })%>
+    <% } else { %>
+        <p class="mt-2">
+            <strong>There are no categories.</strong>
+            <a href="/catalog/category/create">Create a category</a>
+        </p>
+        
+    <% } %>
+<%- include('./partials/footer') -%>

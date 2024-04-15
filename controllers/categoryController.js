@@ -1,15 +1,24 @@
 const Category = require('../models/category');
+const Item = require('../models/item');
 const asyncHandler = require('express-async-handler');
 
 exports.index = asyncHandler(async (req, res, next) => {
     // res.send("NOT IMPLEMENTED: Homepage");
+    const popularItems = await Item.find().limit(3);
+
     res.render("index", {
-        title: "TOP - Inventory Application"
+        title: "TOP - Inventory Application", 
+        popularItems: popularItems
     })
 })
 
 exports.cateogry_list = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Category List")
+    res.render("categories", {
+        title: "Categories",
+        categories: [
+            {id: 1, name: "Cat 1", url: "/catalog/category/1"}
+        ]
+    })
 })
 
 //Display detail page of a category GET
