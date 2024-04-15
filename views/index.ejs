@@ -1,9 +1,9 @@
 <%- include('./partials/header') -%>
-<h1>Welcome!</h1>
+<h1 class="text-primary">Welcome!</h1>
 
 <p class="mt-2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum ullam quibusdam quod praesentium voluptatibus suscipit rerum enim molestias quas officia temporibus harum iste, nulla aut deleniti tenetur eligendi recusandae magnam!</p>
 
-<h2 class="mt-4">Popular Items</h2>
+<h2 class="mt-4 text-primary">Popular Items</h2>
     <div class="d-flex mt-3">
     <% if(popularItems.length) { %>
         <% popularItems.forEach((data,index) => { %>
@@ -21,7 +21,7 @@
         <% }) %>  
     <% } else {%>
         <div class="flex" style="text-align: center;">
-            <h3 style="font-size: 5rem;">Oh no!</h3>
+            <h3 class="text-danger" style="font-size: 5rem;">Oh no!</h3>
             <p><strong>Looks like we don't have any popular items...</strong></p>
         </div>
     <% } %>

@@ -1,3 +1,11 @@
+:root{
+  --col1-hex: #0D1B2A;
+  --col2-hex: #1B263B;
+  --col3-hex: #415A77;
+  --col4-hex: #778DA9;
+  --col5-hex: #E0E1DD;
+}
+
 * {
   margin: 0; 
   padding: 0; 
@@ -109,5 +117,7 @@ footer p{
 .mt-4 {margin-top: 1.5rem;}
 .mt-5 {margin-top: 2rem;}
 
+
+.text-primary { color: var(--col3-hex)}
 
 .text-danger { color: red !important;}
