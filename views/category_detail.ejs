@@ -1,5 +1,18 @@
 <%- include('./partials/header') -%>
-<h1 class="text-primary"><%= title %></h1>
+<h1 class="text-primary"><%= title %> <%=category.name %></h1>
+
+<p>
+    <% category.description %>
+</p>
+
+<hr>
+
+<a class="link-none" href="<%=category.url%>/update">
+    <button>Update Category</button>
+</a>
+<a class="link-none" href="<%=category.url%>/delete">
+    <button>Delete Category</button>
+</a>
 
     
 <%- include('./partials/footer') -%>

@@ -25,8 +25,22 @@ exports.cateogry_list = asyncHandler(async (req, res, next) => {
 
 //Display detail page of a category GET
 exports.category_detail = asyncHandler(async (req, res, next) => {
-    res.send(`NOT IMPLEMENTED: Category detail ${req.params.id}`)
+    const category = Category.findById(req.params.id).exec(); 
+
+    if (category == null){
+        //unable to find category. 
+        // throw error
+        const err = new Error("Category not found");
+        err.status = 404;
+        return next(err);
+    }
+
+    res.render("category_detail", {
+        title: "Category Detail",
+        category: category,
+    })
 })
+
 
 //Display form for creating a category GET
 exports.category_create_get = asyncHandler(async (req, res, next) => {
@@ -68,8 +82,13 @@ exports.category_create_post = [
             return;
         } else {
             // data is valid. save and redirect to detail.
-            await category.save();
-            res.redirect(category.url);
+            try {
+                await category.save();
+                res.redirect(category.url);
+            } catch (err) {
+                console.error(err);
+                res.status(500).send("Internal Server Error");
+            }
         }
 
     })
