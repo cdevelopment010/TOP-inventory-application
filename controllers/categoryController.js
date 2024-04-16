@@ -17,7 +17,7 @@ exports.index = asyncHandler(async (req, res, next) => {
 exports.cateogry_list = asyncHandler(async (req, res, next) => {
     const categories = await Category.find().exec();
 
-    res.render("categories", {
+    res.render("category_list", {
         title: "Categories",
         categories: categories
     })
