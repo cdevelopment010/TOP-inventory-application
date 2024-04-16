@@ -25,8 +25,7 @@ exports.cateogry_list = asyncHandler(async (req, res, next) => {
 
 //Display detail page of a category GET
 exports.category_detail = asyncHandler(async (req, res, next) => {
-    const category = Category.findById(req.params.id).exec(); 
-
+    const category = await Category.findById(req.params.id).exec(); 
     if (category == null){
         //unable to find category. 
         // throw error
@@ -97,12 +96,41 @@ exports.category_create_post = [
 
 //Display category delete form on GET
 exports.category_delete_get = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Delete Category GET")
+    const [category, categoryItems] = await Promise.all([
+        Category.findById(req.params.id).exec(),
+        Item.find({ category: req.params.id}, "name description").exec(),
+    ])
+
+    if (category == null) {
+        res.redirect("/catalog/categories");
+    }
+
+    res.render("category_delete", {
+        title: "Delete Category",
+        category: category, 
+        category_items: categoryItems
+    })
 })
 
 //Handle delete category POST
 exports.category_delete_post = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Delete Category POST")
+    const [category, categoryItems] = await Promise.all([
+        Category.findById(req.params.id).exec(),
+        Item.find({ category: req.params.id}, "name description").exec(),
+    ])
+
+    if (categoryItems.length > 0){
+        //category has item. Must delete items first
+        res.render("category_delete", {
+            title: "Delete Category",
+            category: category, 
+            category_items: categoryItems
+        });
+        return;
+    } else {
+        await Category.findByIdAndDelete(req.body.category_id); 
+        res.redirect("/catalog/categories");
+    }
 })
 
 //Display category update form on GET
