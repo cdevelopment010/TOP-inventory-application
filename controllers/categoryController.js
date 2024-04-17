@@ -135,10 +135,49 @@ exports.category_delete_post = asyncHandler(async (req, res, next) => {
 
 //Display category update form on GET
 exports.category_update_get = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Delete Category GET")
+    const category = await Category.findById(req.params.id); 
+
+    res.render("category_form", {
+        title: "Update Category",
+        category: category,
+    })
 })
 
 //Handle update category POST
-exports.category_update_post = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Update Category POST")
-})
+exports.category_update_post = [
+    body("name")
+        .trim()
+        .isLength({ min: 1})
+        .escape()
+        .withMessage("Category name must be specified"),
+    body("description")
+        .trim()
+        .isLength({min: 3})
+        .escape()
+        .withMessage("Category description must be specified"),
+    
+    asyncHandler(async (req, res, next) => {
+        //Extract the validation errors from a request.
+        const errors = validationResult(req);
+
+        const category = new Category({
+            name: req.body.name,
+            description: req.body.description,
+            _id: req.params.id
+        });
+
+        if (!errors.isEmpty()){
+            res.render("category_form", {
+                title: "Update Category",
+                category: category,
+                errors: errors.array(),
+            })
+            return;
+
+        } else {
+            // Data OK
+            const updatedCategory = await Category.findByIdAndUpdate(req.params.id, category, {});
+            res.redirect(updatedCategory.url);
+        }
+    })
+]
