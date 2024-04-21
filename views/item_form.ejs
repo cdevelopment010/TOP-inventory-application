@@ -1,5 +1,63 @@
 <%- include('./partials/header') -%>
 <h1 class="text-primary"><%= title %></h1>
 
+<form method="post">
+    <div>
+        <label for="name">
+            Name:
+        </label>
+        <input type="text" name="name" id="name" required value="<%= (typeof item != "undefined" ? item.name : "") %>">
+    </div>
+    
+    <!-- Description (text) -->
+    <div>
+        <label for="description">
+            Description:
+        </label>
+        <input type="text" name="description" id="description" required value="<%= (typeof item != "undefined" ? item.description : "") %>">
+    </div>
+
+    <!-- Category (select) -->
+    <div>
+        <label for="category">
+            Category
+        </label>
+        <select required id="category" name="category">
+            <option value="">--None Selected--</option>
+            <% if (typeof category != "undefined" && category.length ) { %>
+                <% category.forEach(cat => { %>
+                    <option value="<%=cat._id %>" selected="<%= (cat._id =- item.category) %>"><%= cat.name %></option>
+                <% }) %>
+            <% } %>
+        </select>
+
+    </div>
+
+    <!-- Price (numeric) -->
+    <div>
+        <label for="price">
+            Price:
+        </label>
+        <input type="number" name="price" id="price" required min="0" step="any" value="<%= (typeof item != "undefined" ? item.price : "") %>">
+    </div>
+
+    <% if (title.toLowerCase().search("create") >= 0 ) { %>
+        <button type="submit">Create Item</button>
+    <% } else { %>
+        <button type="submit">Update Item</button>
+    <% } %>
+</form>
+
+
+
+
+<% if (typeof errors != "undefined" && errors.length) { %>
+    <ul>
+    <% errors.forEach(error => { %> 
+        <%= error.msg %>
+    <% }) %>
+    </ul>
+<% } %>
+
     
 <%- include('./partials/footer') -%>
