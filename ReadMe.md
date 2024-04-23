@@ -9,8 +9,10 @@ No permissions are required for this project, so anyone can create, read, update
 _Coming Soon!_
 
 ## Outstanding
-- [ ] Create category & item from category/item list
+- [x] Create category & item from category/item list
 - [ ] Delete item view
 - [ ] Item detail view
 - [ ] Item Instance views 
 - [ ] Item instance controller (all operations)
+- [ ] Update item list view 
+- [ ] Update button styling

@@ -1,6 +1,10 @@
 <%- include('./partials/header') -%>
 <h1 class="text-primary">Categories</h1>
 
+    <button class="mt-2">
+        <a href="/catalog/category/create" class="link-none">Create Category</a>
+    </button>
+
     <% if(categories.length) { %>
         <% categories.forEach((cat,index) => {%>
             <div class="d-flex align-items-end mt-2 ms-2">
