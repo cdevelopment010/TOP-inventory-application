@@ -26,7 +26,8 @@
             <option value="">--None Selected--</option>
             <% if (typeof category != "undefined" && category.length ) { %>
                 <% category.forEach(cat => { %>
-                    <option value="<%=cat._id %>" selected="<%= (cat._id =- item.category) %>"><%= cat.name %></option>
+                    <option value="<%= cat._id %>" <% if (typeof item != "undefined" && item && item.category.toString() == cat._id.toString()) { %>selected<% } %>><%= cat.name %></option>
+        
                 <% }) %>
             <% } %>
         </select>

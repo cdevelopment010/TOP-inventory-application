@@ -142,6 +142,7 @@ exports.item_update_get = asyncHandler(async (req, res, next) => {
         return next(err);
     }
 
+
     res.render("item_form", {
         title: "Update item",
         item: item,

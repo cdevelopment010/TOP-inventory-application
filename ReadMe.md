@@ -10,8 +10,8 @@ _Coming Soon!_
 
 ## Outstanding
 - [x] Create category & item from category/item list
-- [ ] Delete item view
-- [ ] Item detail view
+- [x] Delete item view
+- [x] Item detail view
 - [ ] Item Instance views 
 - [ ] Item instance controller (all operations)
 - [ ] Update item list view 

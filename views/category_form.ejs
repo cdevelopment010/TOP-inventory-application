@@ -16,5 +16,13 @@
     </div>
     <button type="submit">submit</button>
 </form>
+
+<% if (typeof errors != "undefined" && errors.length) { %>
+    <ul>
+    <% errors.forEach(error => { %> 
+        <%= error.msg %>
+    <% }) %>
+    </ul>
+<% } %>
     
 <%- include('./partials/footer') -%>

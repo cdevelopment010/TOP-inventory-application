@@ -1,5 +1,26 @@
 <%- include('./partials/header') -%>
-<h1 class="text-primary"><%= title %></h1>
+<h1 class="text-primary"><%= title %>: <%=item.name %></h1>
+
+<h3>
+    <a class="link-none" href="<%=item.category.url%>">Category: <%= item.category.name %></a>
+</h3>
+
+<p>
+    £<%= item.price %>
+</p>
+
+<p>
+    <%= item.description %>
+</p>
+
+
+<hr class="mb-3 mt-3">
+<a class="link-none" href="<%=item.url%>/update">
+    <button>Update Item</button>
+</a>
+<a class="link-none" href="<%=item.url%>/delete">
+    <button>Delete Item</button>
+</a>
 
     
 <%- include('./partials/footer') -%>
