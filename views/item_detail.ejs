@@ -5,6 +5,8 @@
     <a class="link-none" href="<%=item.category.url%>">Category: <%= item.category.name %></a>
 </h3>
 
+<img src="<%= item.imageurl.url %>" class="item-image <%= !item?.imageurl?.url ? 'd-none' : '' %>">
+
 <p>
     £<%= item.price %>
 </p>

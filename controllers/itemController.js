@@ -4,6 +4,16 @@ const ItemInstance = require("../models/itemInstance");
 const asyncHandler = require('express-async-handler');
 const Category = require('../models/category');
 
+const multer = require('multer');
+
+const storage = multer.memoryStorage(); 
+const upload = multer({storage}); 
+const cloudinary = require('cloudinary').v2; 
+//Set up cloudinary for images
+cloudinary.config({
+    secure: true
+})
+
 //Display list of items in Item
 exports.item_list = asyncHandler(async (req, res, next) => {
     const items = await Item.find().populate("category").sort({name: 1}).exec();
@@ -37,11 +47,15 @@ exports.item_create_get = asyncHandler(async (req, res, next) => {
     res.render("item_form", {
         title: "Create Item",
         category: allCategories,
+        item: undefined
     })
 })
 
 //Handle creating a Item POST
 exports.item_create_post = [
+    upload.single("item_image"),
+
+
     body("name")
         .trim()
         .isLength({ min: 1})
@@ -71,7 +85,7 @@ exports.item_create_post = [
             name: req.body.name,
             description: req.body.description,
             category: req.body.category, 
-            price: req.body.price
+            price: req.body.price,
         })
 
         if (!errors.isEmpty()){
@@ -83,6 +97,26 @@ exports.item_create_post = [
             });
             return;
         } else {
+            if (req.file) {
+                const cldUpload = await new Promise((res, rej) => {
+                    cloudinary.uploader.upload_stream((err, result) => {
+                        if (err) { 
+                            rej(err)
+                        }
+                        else {
+                            res(result)
+                        }
+                    })
+                    .end(req.file.buffer);
+                })
+                const { public_id } = cldUpload; 
+                const url = cloudinary.url(public_id, {
+                    width: 300, 
+                    height: 300, 
+                    crop: "fill"
+                }) 
+                item.imageurl = { url, publicId: public_id }
+            }
             await item.save(); 
             res.redirect(item.url); 
         }

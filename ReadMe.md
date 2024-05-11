@@ -12,7 +12,7 @@ _Coming Soon!_
 - [x] Create category & item from category/item list
 - [x] Delete item view
 - [x] Item detail view
-- [ ] Item Instance views 
-- [ ] Item instance controller (all operations)
 - [ ] Update item list view 
 - [ ] Update button styling
+- [ ] Remove item instance
+- [ ] Look into adding images via multer and Cloudinary

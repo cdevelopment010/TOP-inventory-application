@@ -3,6 +3,8 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const multer = require('multer');
+const upload = multer({dest: 'uploads/'});
 require('dotenv').config();
 
 const mongoose = require('mongoose');

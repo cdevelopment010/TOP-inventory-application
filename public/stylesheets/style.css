@@ -25,11 +25,12 @@ a.link-none {
   color: inherit;
 }
 
-.popular-image {
-  height: 300px; 
+.popular-image, .item-image {
+  height: 250px; 
   width: 200px; 
   border-radius: 10px;
   background: gray;
+  object-fit: cover;
 }
 
 header, footer {
@@ -82,7 +83,8 @@ footer p{
   padding-inline: min(78rem, 10vw);
   padding-top: 2rem;
 }
-
+.bg-none {background: transparent}
+.d-none {display: none}
 .d-flex {display: flex}
 .flex {flex: 1}
 .flex-column {flex-direction: column;}
