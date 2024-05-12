@@ -6,7 +6,7 @@
         <label for="name" >
             Name:
         </label>
-        <input type="text" name="name" id="name" required value="<%= (typeof item != "undefined" ? item.name : "") %>">
+        <input type="text" name="name" id="name" required value="<%- (item ? item.name : '') %>">
     </div>
     
     <!-- Description (text) -->
@@ -14,7 +14,7 @@
         <label for="description">
             Description:
         </label>
-        <input type="text" name="description" id="description" required value="<%= (typeof item != "undefined" ? item.description : "") %>">
+        <input type="text" name="description" id="description" required value="<%- (item ? item.description : '') %>">
     </div>
 
     <!-- Category (select) -->
@@ -24,9 +24,9 @@
         </label>
         <select required id="category" name="category">
             <option value="">--None Selected--</option>
-            <% if (typeof category != "undefined" && category.length ) { %>
+            <% if (category && category.length ) { %>
                 <% category.forEach(cat => { %>
-                    <option value="<%= cat._id %>" <% if (typeof item != "undefined" && item && item.category.toString() == cat._id.toString()) { %>selected<% } %>><%= cat.name %></option>
+                    <option value="<%- cat._id %>" <% if (item && item.category?.toString() == cat._id.toString()) { %>selected<% } %>><%= cat.name %></option>
         
                 <% }) %>
             <% } %>
@@ -39,14 +39,14 @@
         <label for="price">
             Price:
         </label>
-        <input type="number" name="price" id="price" required min="0" step="any" value="<%= (typeof item != "undefined" ? item.price : "") %>">
+        <input type="number" name="price" id="price" required min="0" step="any" value="<%= (item ? item.price : "") %>">
     </div>
 
     <!-- image -->
     <div class="d-flex flex-column">
         <label for="item_image">Image:</label>
-        <input type="file" name="item_image" id="item_image">
-        <img class="item-image <%= !item ? 'd-none' : ''%>" src="<%= item?.imageurl?.url %>" >
+        <input type="file" name="item_image" id="item_image" onchange="previewImage(event)">
+        <img id="item-image" class="item-image <%= !item ? 'd-none' : ''%>" src="<%= item?.imageurl?.url %>" >
     </div>
 
     <% if (title.toLowerCase().search("create") >= 0 ) { %>
@@ -62,10 +62,29 @@
 <% if (typeof errors != "undefined" && errors.length) { %>
     <ul>
     <% errors.forEach(error => { %> 
-        <%= error.msg %>
+       <li><%= error.msg %></li>
     <% }) %>
     </ul>
 <% } %>
+
+
+<script>
+    function previewImage(event) {
+        const fileInput = event.target; 
+        const file = fileInput.files[0];
+        const reader = new FileReader(); 
+
+        reader.onload = function() {
+            const preview = document.getElementById('item-image'); 
+            preview.src = reader.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file)
+        }
+    }
+
+</script>
 
     
 <%- include('./partials/footer') -%>

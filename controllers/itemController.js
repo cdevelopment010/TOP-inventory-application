@@ -79,8 +79,10 @@ exports.item_create_post = [
         .withMessage("Price must be numeric")
 
     , asyncHandler(async (req, res, next) => {
+        
+        console.log("body create", req.body)
         const errors = validationResult(req); 
-
+        const allCategories = await Category.find().sort({name: 1}).exec();
         const item = new Item({
             name: req.body.name,
             description: req.body.description,
@@ -93,6 +95,7 @@ exports.item_create_post = [
             res.render("item_form", {
                 title: "Create Item",
                 item: item,
+                category: allCategories,
                 errors: errors.array()
             });
             return;
@@ -180,7 +183,6 @@ exports.item_update_get = asyncHandler(async (req, res, next) => {
         return next(err);
     }
 
-
     res.render("item_form", {
         title: "Update item",
         item: item,
@@ -190,6 +192,7 @@ exports.item_update_get = asyncHandler(async (req, res, next) => {
 
 //Handle update Item POST
 exports.item_update_post = [
+    upload.single("item_image"),
     body("name")
         .trim()
         .isLength({ min: 1})
@@ -216,18 +219,21 @@ exports.item_update_post = [
     , asyncHandler(async (req, res, next) => {
         const errors = validationResult(req); 
 
+        const currentImage = await Item.findById(req.params.id, "imageurl").exec(); 
+
+        console.log("currentImage", currentImage?.imageurl)
         const item = new Item({
             name: req.body.name,
             description: req.body.description,
             category: req.body.category_id, 
             price: req.body.price,
+            imageurl: currentImage?.imageurl,
             _id: req.params.id,
         });
 
         if (!errors.isEmpty()) {
             //return form with errors
-            const allCategories = await Categories.find().sort({name: 1}).exec();
-
+            const allCategories = await Category.find().sort({name: 1}).exec();
             res.render("item_form", {
                 title: "Update item",
                 item: item,
@@ -236,6 +242,33 @@ exports.item_update_post = [
             })
             return;
         } else {
+
+            if (req.file) {
+                const publicId = currentImage?.publicId; 
+                let uploadOptions = publicId ? 
+                    { public_id: publicId, invalidate: true, overwrite: true}
+                    : {}
+                const cldUpload = await new Promise((res, rej) => {
+                    cloudinary.uploader.upload_stream(uploadOptions, (err, result) => {
+                        if (err) { 
+                            rej(err)
+                        }
+                        else {
+                            res(result)
+                        }
+                    })
+                    .end(req.file.buffer);
+                })
+                let { public_id} = cldUpload; 
+                const url = cloudinary.url(public_id, {
+                    width: 300, 
+                    height: 300, 
+                    crop: "fill"
+                }) 
+                item.imageurl = { url, publicId: public_id }
+
+            }
+
             const updatedItem = await Item.findByIdAndUpdate(req.params.id, item, {});
             res.redirect(updatedItem.url);
         }
