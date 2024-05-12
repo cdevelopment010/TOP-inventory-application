@@ -10,7 +10,11 @@
             <div key="popularItem-<%=index%>" style="width:min-content" class="me-3">
                 <a href="<%=data?.url%>">
                     <div class="d-flex flex-column">
-                        <img class="popular-image <%= !data?.imageurl?.url ? 'bg-none' : '' %>" src="<%=data.imageurl.url%>" alt="No image provided">
+                        <% if(data?.imageurl?.url) { %>
+                            <img class="popular-image <%= !data?.imageurl?.url ? 'bg-none' : '' %>" src="<%=data.imageurl.url%>" alt="No image provided">
+                        <% } else { %>
+                            <div class="placeholder-img d-inline"></div>
+                        <% } %>
                         <div class="d-flex justify-content-between align-items-top">
                             <span><%= data.name %></span>
                             <span>£ <%= data.price %></span>

@@ -157,6 +157,10 @@ exports.item_delete_post = asyncHandler(async (req, res, next) => {
         })
         return;
     } else {
+        //delete image from cloudinary
+        cloudinary.uploader.destroy(item.imageurl.publicId)
+
+
         await Item.findByIdAndDelete(req.body.item_id); 
         res.redirect("/catalog/items");
     }

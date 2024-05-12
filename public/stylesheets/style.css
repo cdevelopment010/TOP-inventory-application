@@ -3,6 +3,7 @@
   --col2-hex: #1B263B;
   --col3-hex: #415A77;
   --col4-hex: #778DA9;
+  --col4-rgb: 119, 141, 169;
   --col5-hex: #E0E1DD;
 }
 
@@ -25,11 +26,11 @@ a.link-none {
   color: inherit;
 }
 
-.popular-image, .item-image {
+.popular-image, .item-image, .placeholder-img {
   height: 250px; 
   width: 200px; 
   border-radius: 10px;
-  background: gray;
+  background: rgba(var(--col4-rgb),0.5);
   object-fit: cover;
 }
 
@@ -86,6 +87,7 @@ footer p{
 .bg-none {background: transparent}
 .d-none {display: none}
 .d-flex {display: flex}
+.d-inline {display: inline-block}
 .flex {flex: 1}
 .flex-column {flex-direction: column;}
 .align-items-center {align-items: center;}

@@ -14,5 +14,8 @@ _Coming Soon!_
 - [x] Item detail view
 - [ ] Update item list view 
 - [ ] Update button styling
-- [ ] Remove item instance
+- [x] Remove item instance
 - [ ] Look into adding images via multer and Cloudinary
+  - [x] Add to item create
+  - [x] Remove from cloudinary on delete
+  - [ ] Update image
