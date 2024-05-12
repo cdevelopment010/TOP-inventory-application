@@ -242,7 +242,9 @@ exports.item_update_post = [
             })
             return;
         } else {
-
+            if (req.body.clear_image) {
+                item.imageurl = {url: '', publicId: ''}
+            }
             if (req.file) {
                 const publicId = currentImage?.publicId; 
                 let uploadOptions = publicId ? 
