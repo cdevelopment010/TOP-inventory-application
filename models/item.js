@@ -7,7 +7,7 @@ const ItemSchema = new Schema({
     category: {type: Schema.Types.ObjectId, ref: "Category", required: true},
     price: { type: Number, required: true},
     imageurl: { url: {type: String, default: ""}, publicId: {type: String, defualt: ""} },
-
+    // tags: {type: Array}
 });
 
 //Virtual URL

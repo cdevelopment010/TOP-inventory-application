@@ -16,6 +16,10 @@
   -webkit-box-sizing: border-box;
 }
 
+html {
+  font-size: 16px; 
+}
+
 body {
   max-height: 100vh;
   min-height: 100vh;
@@ -24,7 +28,7 @@ body {
 }
 
 
-a.link-none {
+.link-none {
   text-decoration: none;
   color: inherit;
 }
@@ -102,9 +106,40 @@ footer p{
 }
 
 .content {
-  padding-inline: min(78rem, 10vw);
+  padding-inline: min(10rem, 20vw);
   padding-top: 2rem;
 }
+
+.btn {
+  border-radius: 5px;
+  --bg: var(--col1-hex);
+  --color: white; 
+  background: var(--bg); 
+  outline: none; 
+  color: var(--color); 
+  padding: 8px 10px; 
+  cursor: pointer;
+  border: 1px solid var(--bg);
+  transition: 0.3s all ease-in-out; 
+}
+
+.btn:hover {
+  background: var(--color); 
+  color: var(--bg);
+}
+
+.btn-danger {
+  --bg: red; 
+  --color: white; 
+}
+
+.btn-danger:hover {
+  --color: tomato; 
+  --bg: white; 
+  border: 1px solid var(--color);
+}
+
+
 .bg-none {background: transparent}
 .d-none {display: none}
 .d-flex {display: flex}
@@ -119,9 +154,16 @@ footer p{
 .justify-content-around {justify-content: space-around;}
 
 .w-25 {width: 25%;}
-.w-55 {width: 50%;}
+.w-50 {width: 50%;}
 .w-75 {width: 75%;}
 
+.fw-bold { font-weight: bold;}
+
+.fs-1 { font-size: 1rem;}
+.fs-2 { font-size: 1.5rem;}
+.fs-3 { font-size: 2rem;}
+.fs-4 { font-size: 2.5rem;}
+.fs-5 { font-size: 3rem;}
 
 .me-0 {margin-right: 0rem;}
 .me-1 {margin-right: 0.25rem;}

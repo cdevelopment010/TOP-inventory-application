@@ -1,24 +1,31 @@
 <%- include('./partials/header') -%>
-<h1 class="text-primary">Categories</h1>
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <h1 class="text-primary">Species</h1>
+        
+        <a href="/catalog/category/create" class="link-none mt-2 btn">
+            Create
+        </a>
+        
+    </div>
 
-    <button class="mt-2">
-        <a href="/catalog/category/create" class="link-none">Create Category</a>
-    </button>
 
     <% if(categories.length) { %>
         <% categories.forEach((cat,index) => {%>
-            <div class="d-flex align-items-end mt-2 ms-2">
-                <h3 class="me-5"><a class="link-none" href="<%=cat.url%>"> <%= cat.name %> </a></h3>
-                <a href="<%=cat.url%>/update" class="link-none me-2">Update</a>
-                <a href="<%=cat.url%>/delete" class="link-none text-danger">Delete</a>
+            <div class="d-flex align-items-end justify-content-between mt-2 ms-2">
+                
+                <a class="link-none me-5 fw-bold fs-2" href="<%=cat.url%>"> <%= cat.name %> </a>
+                <div class="mb-1">
+                    <a href="<%=cat.url%>/update" class="link-none me-2 btn">Update</a>
+                    <a href="<%=cat.url%>/delete" class="link-none  btn btn-danger">Delete</a>
+                </div>
             </div>
+            <hr class="mt-2">
 
         <% })%>
     <% } else { %>
         <p class="mt-2">
-            <strong>There are no categories.</strong>
-            <a href="/catalog/category/create">Create a category</a>
+            <strong>There are no species. Please create a species/</strong>
         </p>
         
-    <% } %>
+     <% } %>
 <%- include('./partials/footer') -%>

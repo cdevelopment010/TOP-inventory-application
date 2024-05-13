@@ -19,3 +19,6 @@ _Coming Soon!_
   - [x] Add to item create
   - [x] Remove from cloudinary on delete
   - [ ] Update image
+- [ ] Filter goes on "items"
+- [ ] Rename Category to species 
+- [ ] Rename items to animals
