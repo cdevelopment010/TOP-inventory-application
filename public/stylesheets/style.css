@@ -33,7 +33,7 @@ body {
   color: inherit;
 }
 
-.popular-image, .item-image, .placeholder-img {
+.popular-image, .pet-image, .placeholder-img {
   height: 250px; 
   width: 200px; 
   border-radius: 10px;

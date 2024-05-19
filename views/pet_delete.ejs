@@ -1,0 +1,10 @@
+<%- include('./partials/header') -%>
+<h1 class="text-primary"><%= title %>: <%= pet.name %> (<%=pet.gender%>, <%=pet.species.name%>)</h1>
+
+<p>Are you sure you want to delete this pet? (They would be very sad)</p>
+<form method="POST">
+    <input type="hidden" name="pet_id" value="<%=pet._id%>">
+    <button type="submit" class="">Delete</button>
+</form>
+
+<%- include('./partials/footer') -%>

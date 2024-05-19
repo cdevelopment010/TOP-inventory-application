@@ -1,0 +1,25 @@
+<%- include('./partials/header') -%>
+<h1 class="text-primary"><%= title %></h1>
+
+    <% if (pets.length) { %> 
+        <p>Delete the following pets before deleting the species.</p>
+        <div>
+            <dl>
+                <% pets.forEach((pet, index) => { %>
+                    <dt>
+                        <a href="<%=pet.url%>"><%=pet.name%></a>
+                    </dt>
+                    <dd>
+                        <%= pet.description %>
+                    </dd>
+                <% }) %>
+            </dl>
+        </div>
+    <% } else {%>
+        <p>Are you sure you want to delete this species?</p>
+        <form method="POST">
+            <input type="hidden" name="species_id" value="<%=species._id%>">
+            <button type="submit" class="">Delete</button>
+        </form>
+    <% } %>
+<%- include('./partials/footer') -%>

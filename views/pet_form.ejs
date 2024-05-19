@@ -1,0 +1,136 @@
+<%- include('./partials/header') -%>
+<h1 class="text-primary"><%= title %></h1>
+
+<form method="post" enctype="multipart/form-data">
+    <div>
+        <label for="name" >
+            Name:
+        </label>
+        <input type="text" name="name" id="name" required value="<%- (pet ? pet.name : '') %>">
+    </div>
+    
+    <!-- Species (select) -->
+    <div>
+        <label for="species">
+            Species
+        </label>
+        <select required id="species" name="species">
+            <option value="">--None Selected--</option>
+            <% if (species && species.length ) { %>
+                <% species.forEach(species => { %>
+                    <option value="<%- species._id %>" <% if (pet && pet.species?.toString() == species._id.toString()) { %>selected<% } %>><%= species.name %></option>
+        
+                <% }) %>
+            <% } %>
+        </select>
+    </div>
+
+    <!-- Gender -->
+    <div>
+        <label for="gender">
+            Gender
+        </label>
+        <select required id="gender" name="gender">
+            <option value="">--None Selected--</option>
+            <option value="M" <%= pet?.gender == 'M' ? 'Selected' : '' %> >Male</option>
+            <option value="F" <%= pet?.gender == 'F' ? 'Selected' : '' %> >Female</option>
+            <option value="N/A" <%= pet?.gender == 'N/A' ? 'Selected' : '' %> >Unknonwn</option>
+        </select>
+    </div>
+
+    <!-- DOB -->
+    <div>
+        <label for="dob" title="date of birth">
+            DOB:
+        </label>
+        <input type="date" id="dob" name="dob" value="<% pet ? pet.dob : '' %>" >
+    </div>
+
+    <!-- Number of legs -->
+    <div>
+        <label for="num_of_legs" title="Number of legs">
+            # Legs:
+        </label>
+        <input type="number" id="num_of_legs" name="num_of_legs" value="<% pet ? pet.num_of_legs : '' %>" min="0" step="1">
+    </div>
+    
+    <!-- Colour -->
+    <div>
+        <label for="color" >
+            Color:
+        </label>
+        <input type="text" id="color" name="color" value="<% pet ? pet.color : '' %>" >
+    </div>
+
+    <!-- Description (text) -->
+    <div>
+        <label for="description">
+            Description:
+        </label>
+        <input type="text" name="description" id="description" required value="<%- (pet ? pet.description : '') %>">
+    </div>
+
+
+    <!-- image -->
+    <div class="d-flex flex-column">
+        <label for="pet_image">Image:</label>
+        <input type="file" name="pet_image" id="pet_image" onchange="previewImage(event)">
+        <div class="img-container">
+            <img id="pet-image" class="pet-image src="<%= pet?.imageurl?.url %>" >
+            <button type="button" class="clear-image" onclick="clearInput(event)">&times;</button>
+        </div>
+        <input hidden type="checkbox" name="clear_image" id="clear_image" >
+    </div>
+
+    <% if (title.toLowerCase().search("create") >= 0 ) { %>
+        <button type="submit">Create</button>
+    <% } else { %>
+        <button type="submit">Update</button>
+    <% } %>
+</form>
+
+
+
+
+<% if (typeof errors != "undefined" && errors.length) { %>
+    <ul>
+    <% errors.forEach(error => { %> 
+       <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+<% } %>
+
+
+<script>
+    function clearInput(event) {
+        const preview = document.getElementById('pet-image'); 
+        preview.src = ""; 
+
+        const fileInput = document.getElementById("pet_image");
+        fileInput.value = null; 
+        const clearImage = document.getElementById("clear_image");
+        clearImage.checked = true;
+    }
+    
+    function previewImage(event) {
+        const fileInput = event.target; 
+        const file = fileInput.files[0];
+        const reader = new FileReader(); 
+
+        reader.onload = function() {
+            const preview = document.getElementById('pet-image'); 
+            preview.src = reader.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file)
+        }
+
+        const clearImage = document.getElementById("clear_image");
+        clearImage.checked = false;
+    }
+
+</script>
+
+    
+<%- include('./partials/footer') -%>

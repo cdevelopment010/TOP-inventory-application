@@ -1,0 +1,43 @@
+<%- include('./partials/header') -%>
+<h1 class="text-primary"><%= title %></h1>
+
+<form method="POST">
+    <div>
+        <label for="name">
+            Name:
+        </label>
+        <input type="text" id="name" name="name" placeholder="Species Name" value="<%= (species !== undefined ? species.name : '') %>" >
+    </div>
+    <div>
+        <label for="classification">
+            classification:
+        </label> 
+        <!-- <input type="text" id="classification" name="classification" placeholder="Species classification" value="<%= ( species !== undefined ? species.classification : '') %>" > -->
+        <select id="classification" name="classification">
+            <option value="">--None Selected--</option>
+            <option value="Mammal" <%= species?.classification == 'Mammal' ? 'Selected' : '' %>>Mammal</option>
+            <option value="Bird" <%= species?.classification == 'Bird' ? 'Selected' : '' %>>Bird</option>
+            <option value="Fish" <%= species?.classification == 'Fish' ? 'Selected' : '' %>>Fish</option>
+            <option value="Reptile" <%= species?.classification == 'Reptile' ? 'Selected' : '' %>>Reptile</option>
+            <option value="Amphibian" <%= species?.classification == 'Amphibian' ? 'Selected' : '' %>>Amphibian</option>
+            <option value="Insect" <%= species?.classification == 'Insect' ? 'Selected' : '' %>>Insect</option>
+        </select>
+
+
+    </div>
+    <% if (title.toLowerCase().search("create") >= 0 ) { %>
+        <button type="submit">Create</button>
+    <% } else { %>
+        <button type="submit">Update</button>
+    <% } %>
+</form>
+
+<% if (typeof errors != "undefined" && errors.length) { %>
+    <ul>
+    <% errors.forEach(error => { %> 
+        <%= error.msg %>
+    <% }) %>
+    </ul>
+<% } %>
+    
+<%- include('./partials/footer') -%>

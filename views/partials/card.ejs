@@ -1,0 +1,22 @@
+<% pets.forEach((pet, index) => { %>
+    <div class="card">
+        <div class="card-image">
+            <img src="<%= pet.imageurl.url %>" class="pet-image ">
+        </div>
+        <div class="card-body">
+            <div class="card-body-header d-flex">
+                <span class="fw-bold"><%=pet.name%></span>
+                <span class="fw-bold"><%=pet.species.name%></span>
+            </div>
+            <div class="d-flex">
+                <span><%= pet.gender %></span>
+                <span><%= pet.num_of_legs %></span>
+            </div>
+            <div class="d-flex">
+                <span><%= pet.color %></span>
+                <span><%= pet.dob %></span>
+            </div>
+
+        </div>
+    </div>
+<% }) %>

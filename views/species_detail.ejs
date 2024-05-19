@@ -1,0 +1,18 @@
+<%- include('./partials/header') -%>
+<h1 class="text-primary"><%= title %>: <%=species.name %></h1>
+
+<p class="mt-3 mb-3">
+    <%= species.classification %>
+</p>
+
+<hr class="mb-3">
+
+<a class="link-none" href="<%=species.url%>/update">
+    <button>Update</button>
+</a>
+<a class="link-none" href="<%=species.url%>/delete">
+    <button>Delete</button>
+</a>
+
+    
+<%- include('./partials/footer') -%>

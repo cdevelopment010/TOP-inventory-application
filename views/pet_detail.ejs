@@ -1,0 +1,19 @@
+<%- include('./partials/header') -%>
+<h1 class="text-primary"><%= title %></h1>
+
+<%- include('./partials/card', {pets: [pet] }) %>
+
+<img src="<%= pet.imageurl.url %>" class="pet-image <%= !pet?.imageurl?.url ? 'd-none' : '' %>">
+
+
+
+<hr class="mb-3 mt-3">
+<a class="link-none" href="<%=pet.url%>/update">
+    <button>Update</button>
+</a>
+<a class="link-none" href="<%=pet.url%>/delete">
+    <button>Delete</button>
+</a>
+
+    
+<%- include('./partials/footer') -%>
