@@ -1,22 +1,38 @@
 <% pets.forEach((pet, index) => { %>
     <div class="card">
         <div class="card-image">
-            <img src="<%= pet.imageurl.url %>" class="pet-image ">
+            <img src="<%= pet.imageurl.url %>" class="">
         </div>
         <div class="card-body">
-            <div class="card-body-header d-flex">
-                <span class="fw-bold"><%=pet.name%></span>
-                <span class="fw-bold"><%=pet.species.name%></span>
+            <div class="card-body-header d-flex align-items-center justify-content-between p-2">
+                <span class="fw-bold" title="Pet name"><%=pet.name%></span>
+                <span class="fw-bold" title="Pet species"><%=pet.species.name%></span>
             </div>
-            <div class="d-flex">
-                <span><%= pet.gender %></span>
-                <span><%= pet.num_of_legs %></span>
+            <div class="d-flex align-items-center justify-content-between px-2">
+                <span title="Pet gender"><%= pet.gender %></span>
+                <!-- <span><%= pet.num_of_legs %></span> -->
             </div>
-            <div class="d-flex">
-                <span><%= pet.color %></span>
-                <span><%= pet.dob %></span>
+            <div class="d-flex align-items-center justify-content-between px-2">
+                <span title="Pet color"><%= pet.color %></span>
+                <span title="Pet age"><%= pet.age %></span>
+                <!-- <span><%= new Date(pet.dob).toLocaleDateString() %></span> -->
             </div>
 
+            <div class="d-flex align-items-center justify-content-between px-2">
+                <%= pet.description.length < 30 ? pet.description : pet.description.substring(0,30).trim()+'...' %>
+            </div>
+
+        </div>
+
+        <div class="card-footer">
+            <div class="d-flex align-items-center justify-content-between px-2">
+                <a class="link-none" href="<%=pet.url%>/delete">
+                    <button class="btn btn-danger">Delete</button>
+                </a>
+                <a class="link-none" href="<%=pet.url%>/update">
+                    <button class="btn">Update</button>
+                </a>
+            </div>
         </div>
     </div>
 <% }) %>

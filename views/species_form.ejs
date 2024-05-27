@@ -2,38 +2,43 @@
 <h1 class="text-primary"><%= title %></h1>
 
 <form method="POST">
-    <div>
-        <label for="name">
-            Name:
-        </label>
-        <input type="text" id="name" name="name" placeholder="Species Name" value="<%= (species !== undefined ? species.name : '') %>" >
+    <div class="d-flex align-items-center justify-content-evenly mt-4 mb-4">
+        <div class="input-group">
+            <input type="text" id="name" required name="name" placeholder=" " value="<%= (species !== undefined ? species.name : '') %>" >
+            <label for="name">
+                Species*
+            </label>
+        </div>
+        <div class="input-group">
+            
+            <!-- <input type="text" id="classification" name="classification" placeholder="Species classification" value="<%= ( species !== undefined ? species.classification : '') %>" > -->
+            <select id="classification" name="classification">
+                <option value=""></option>
+                <option value="Mammal" <%= species?.classification == 'Mammal' ? 'Selected' : '' %>>Mammal</option>
+                <option value="Bird" <%= species?.classification == 'Bird' ? 'Selected' : '' %>>Bird</option>
+                <option value="Fish" <%= species?.classification == 'Fish' ? 'Selected' : '' %>>Fish</option>
+                <option value="Reptile" <%= species?.classification == 'Reptile' ? 'Selected' : '' %>>Reptile</option>
+                <option value="Amphibian" <%= species?.classification == 'Amphibian' ? 'Selected' : '' %>>Amphibian</option>
+                <option value="Insect" <%= species?.classification == 'Insect' ? 'Selected' : '' %>>Insect</option>
+            </select>
+            <label for="classification" class="<%= (species && species.classification ? 'move-out-of-way' : '') %>">
+                classification*
+            </label> 
+        </div>
     </div>
-    <div>
-        <label for="classification">
-            classification:
-        </label> 
-        <!-- <input type="text" id="classification" name="classification" placeholder="Species classification" value="<%= ( species !== undefined ? species.classification : '') %>" > -->
-        <select id="classification" name="classification">
-            <option value="">--None Selected--</option>
-            <option value="Mammal" <%= species?.classification == 'Mammal' ? 'Selected' : '' %>>Mammal</option>
-            <option value="Bird" <%= species?.classification == 'Bird' ? 'Selected' : '' %>>Bird</option>
-            <option value="Fish" <%= species?.classification == 'Fish' ? 'Selected' : '' %>>Fish</option>
-            <option value="Reptile" <%= species?.classification == 'Reptile' ? 'Selected' : '' %>>Reptile</option>
-            <option value="Amphibian" <%= species?.classification == 'Amphibian' ? 'Selected' : '' %>>Amphibian</option>
-            <option value="Insect" <%= species?.classification == 'Insect' ? 'Selected' : '' %>>Insect</option>
-        </select>
-
-
+    <div class="mb-2">
+        <small>fields marked with * are required</small>
     </div>
     <% if (title.toLowerCase().search("create") >= 0 ) { %>
-        <button type="submit">Create</button>
+        <button type="submit" class="btn">Create</button>
     <% } else { %>
-        <button type="submit">Update</button>
+        <button type="submit" class="btn">Update</button>
     <% } %>
 </form>
 
 <% if (typeof errors != "undefined" && errors.length) { %>
-    <ul>
+    <h5 class="mt-3">Errors!</h5>
+    <ul class="mt-3">
     <% errors.forEach(error => { %> 
         <%= error.msg %>
     <% }) %>

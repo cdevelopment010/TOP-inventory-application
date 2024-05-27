@@ -2,90 +2,94 @@
 <h1 class="text-primary"><%= title %></h1>
 
 <form method="post" enctype="multipart/form-data">
-    <div>
-        <label for="name" >
-            Name:
-        </label>
-        <input type="text" name="name" id="name" required value="<%- (pet ? pet.name : '') %>">
-    </div>
+    <div class="d-grid grid-col-3 grid-row-auto gap-3 mt-3 mb-3 align-items-center justify-content-evenly">
+        <div class="input-group">
+            <input type="text" name="name" id="name"  placeholder=" " class="w-100" required value="<%- (pet ? pet.name : '') %>">
+            <label for="name" >
+                Name*
+            </label>
+        </div>
+        <!-- Species (select) -->
+        <div class="input-group">
+            <select required id="species" name="species" onchange="onSelectChange(event)" class="w-100">
+                <option value=""></option>
+                <% if (species && species.length ) { %>
+                    <% species.forEach(species => { %>
+                        <option value="<%- species._id %>" <% if (pet && pet.species?.toString() == species._id.toString()) { %>selected<% } %>><%= species.name %></option>
+            
+                    <% }) %>
+                <% } %>
+            </select>
+            <label for="species" class="<%= (pet && pet.species ? 'move-out-of-way' : '') %>">
+                Species*
+            </label>
+        </div>
     
-    <!-- Species (select) -->
-    <div>
-        <label for="species">
-            Species
-        </label>
-        <select required id="species" name="species">
-            <option value="">--None Selected--</option>
-            <% if (species && species.length ) { %>
-                <% species.forEach(species => { %>
-                    <option value="<%- species._id %>" <% if (pet && pet.species?.toString() == species._id.toString()) { %>selected<% } %>><%= species.name %></option>
+        <!-- Gender -->
+        <div class="input-group">
+            
+            <select required id="gender" name="gender" class="w-100" onchange="onSelectChange(event)">
+                <option value=""></option>
+                <option value="M" <%= pet?.gender == 'M' ? 'Selected' : '' %> >Male</option>
+                <option value="F" <%= pet?.gender == 'F' ? 'Selected' : '' %> >Female</option>
+                <option value="N/A" <%= pet?.gender == 'N/A' ? 'Selected' : '' %> >Unknonwn</option>
+            </select>
+            <label for="gender" class="<%= (pet && pet.gender ? 'move-out-of-way' : '') %>">
+                Gender*
+            </label>
+        </div>
+    
+        <!-- DOB -->
+        <div class="input-group">
+            <input type="date" id="dob" name="dob" class="w-100" placeholder=" " value="<% pet ? pet.dob : '' %>" >
+            <label for="dob" title="date of birth">
+                DOB*
+            </label>
+        </div>
+    
+        <!-- Number of legs -->
+        <div class="input-group">
+            <input type="number" id="num_of_legs" placeholder=" " class="w-100" name="num_of_legs" value="<% pet ? pet.num_of_legs : '' %>" min="0" step="1">
+            <label for="num_of_legs" title="Number of legs">
+                # Legs*
+            </label>
+        </div>
         
-                <% }) %>
-            <% } %>
-        </select>
-    </div>
+        <!-- Colour -->
+        <div class="input-group">
+            <input type="text" id="color" name="color" placeholder=" " class="w-100" value="<% pet ? pet.color : '' %>" >
+            <label for="color" >
+                Color*
+            </label>
+        </div>
 
-    <!-- Gender -->
-    <div>
-        <label for="gender">
-            Gender
-        </label>
-        <select required id="gender" name="gender">
-            <option value="">--None Selected--</option>
-            <option value="M" <%= pet?.gender == 'M' ? 'Selected' : '' %> >Male</option>
-            <option value="F" <%= pet?.gender == 'F' ? 'Selected' : '' %> >Female</option>
-            <option value="N/A" <%= pet?.gender == 'N/A' ? 'Selected' : '' %> >Unknonwn</option>
-        </select>
-    </div>
 
-    <!-- DOB -->
-    <div>
-        <label for="dob" title="date of birth">
-            DOB:
-        </label>
-        <input type="date" id="dob" name="dob" value="<% pet ? pet.dob : '' %>" >
-    </div>
+        <!-- Description (text) -->
+        <div class="input-group">
+            <input type="text" name="description" id="description" placeholder=" " class="w-100" required value="<%- (pet ? pet.description : '') %>">
+            <label for="description">
+                Description:
+            </label>
+        </div>
 
-    <!-- Number of legs -->
-    <div>
-        <label for="num_of_legs" title="Number of legs">
-            # Legs:
-        </label>
-        <input type="number" id="num_of_legs" name="num_of_legs" value="<% pet ? pet.num_of_legs : '' %>" min="0" step="1">
-    </div>
-    
-    <!-- Colour -->
-    <div>
-        <label for="color" >
-            Color:
-        </label>
-        <input type="text" id="color" name="color" value="<% pet ? pet.color : '' %>" >
-    </div>
-
-    <!-- Description (text) -->
-    <div>
-        <label for="description">
-            Description:
-        </label>
-        <input type="text" name="description" id="description" required value="<%- (pet ? pet.description : '') %>">
     </div>
 
 
     <!-- image -->
     <div class="d-flex flex-column">
         <label for="pet_image">Image:</label>
-        <input type="file" name="pet_image" id="pet_image" onchange="previewImage(event)">
+        <input type="file" name="pet_image" class="btn mt-2 mb-2" id="pet_image" onchange="previewImage(event)">
         <div class="img-container">
-            <img id="pet-image" class="pet-image src="<%= pet?.imageurl?.url %>" >
+            <img id="pet-image" class="pet-image" src="<%= pet?.imageurl?.url %>" >
             <button type="button" class="clear-image" onclick="clearInput(event)">&times;</button>
         </div>
         <input hidden type="checkbox" name="clear_image" id="clear_image" >
     </div>
 
     <% if (title.toLowerCase().search("create") >= 0 ) { %>
-        <button type="submit">Create</button>
+        <button type="submit" class="btn mt-3">Create</button>
     <% } else { %>
-        <button type="submit">Update</button>
+        <button type="submit" class="btn mt-3">Update</button>
     <% } %>
 </form>
 
@@ -102,6 +106,16 @@
 
 
 <script>
+
+    function onSelectChange(event) {
+        const label = event.srcElement.nextElementSibling; 
+        if(event.target.selectedIndex == 0) {
+            label.classList.remove('move-out-of-way')
+        } else {
+            label.classList.add('move-out-of-way')
+        }
+    }
+    
     function clearInput(event) {
         const preview = document.getElementById('pet-image'); 
         preview.src = ""; 

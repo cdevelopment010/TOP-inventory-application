@@ -7,9 +7,9 @@
     "devstart": "nodemon ./bin/www",
     "serverstart": "DEBUG=top-inventory-application:* npm run devstart",
     "serverstart_win": "SET DEBUG=express-locallibrary-tutorial:* & npm run devstart"
-
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cloudinary": "^2.2.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",

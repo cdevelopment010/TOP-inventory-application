@@ -20,5 +20,12 @@ _Coming Soon!_
   - [x] Remove from cloudinary on delete
   - [ ] Update image
 - [ ] Filter goes on "items"
-- [ ] Rename Category to species 
-- [ ] Rename items to animals
+- [x] Rename Category to species 
+- [x] Rename items to animals
+- [x] Update species - event on load to set the select label position if it has a value. 
+- [x] Species detail - update btns
+- [x] Species delete - update btns
+- [x] Pet update - event on load to set the select label position if it has a value. 
+- [ ] Pet create/update - upload image is too sensitive
+- [ ] Pet DOB display date issue
+- [ ] 
