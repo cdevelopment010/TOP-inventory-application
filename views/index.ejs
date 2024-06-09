@@ -1,7 +1,12 @@
 <%- include('./partials/header') -%>
 <h1 class="text-primary">Welcome!</h1>
 
-<p class="mt-2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum ullam quibusdam quod praesentium voluptatibus suscipit rerum enim molestias quas officia temporibus harum iste, nulla aut deleniti tenetur eligendi recusandae magnam!</p>
+<p class="mt-2">
+    This is my take on The Odin Project (TOP) <a href="https://www.theodinproject.com/lessons/nodejs-inventory-application" target="_blank">Inventory Application</a> project.
+</p>
+<p>
+    Please share pictures of your pets with a little description about them. Create species categories if one does not already exist. 
+</p>
 
 <h2 class="mt-4 text-primary">Popular Pets</h2>
     <div class="d-grid grid-col-auto-300 mt-3 gap-3">
@@ -11,6 +16,7 @@
                 <%- include('./partials/card', {pets: [data] }) %>
             </div>
         <% }) %>  
+        <a class="btn btn-link align-self-end" href="/catalog/pets">View more pets...</a>
     <% } else {%>
         <div class="flex" style="text-align: center;">
             <h3 class="text-danger" style="font-size: 5rem;">Oh no!</h3>

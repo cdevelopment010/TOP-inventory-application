@@ -13,7 +13,7 @@ _Coming Soon!_
 - [x] Delete item view
 - [x] Item detail view
 - [ ] Update item list view 
-- [ ] Update button styling
+- [x] Update button styling
 - [x] Remove item instance
 - [ ] Look into adding images via multer and Cloudinary
   - [x] Add to item create
@@ -27,5 +27,11 @@ _Coming Soon!_
 - [x] Species delete - update btns
 - [x] Pet update - event on load to set the select label position if it has a value. 
 - [ ] Pet create/update - upload image is too sensitive
-- [ ] Pet DOB display date issue
-- [ ] 
+- [x] Pet DOB display date issue
+- [ ] Pet detail - card isn't a good idea. Re-design in Figma
+- [x] Card height/overflow. 
+- [x] Card show more (and hide) for description
+- [x] index "View more pets" btn
+- [ ] Padding at the end of popular pets
+- [ ] Randomly select populate pets
+

@@ -16,11 +16,24 @@ cloudinary.config({
 
 //Display list of pets in pet
 exports.pet_list = asyncHandler(async (req, res, next) => {
-    const pets = await Pet.find().populate("species").sort({name: 1}).exec();
+    const filterOptions = req.body; 
+    
+    if (filterOptions.species == "") {
+        delete filterOptions.species; 
+    }
+    
+    console.log(filterOptions);
+    
+    const [pets, species] = await Promise.all([
+        Pet.find(filterOptions).populate("species").sort({name: 1}).exec(),
+        Species.find().sort({name: 1}).exec(),
+    ]) 
 
     res.render("pet_list", {
         title: "Pets",
         pets: pets,
+        species: species,
+        filterOptions: filterOptions,
     })
 
 })

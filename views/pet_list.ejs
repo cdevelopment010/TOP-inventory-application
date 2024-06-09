@@ -1,28 +1,28 @@
 <%- include('./partials/header') -%>
-<h1 class="text-primary">Pets</h1>
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <h1 class="text-primary">Pets</h1>
+    <a href="/catalog/pet/create" class="link-none mt-2 btn">Create</a>
+</div>
 
-    <button class="mt-2">
-        <a href="/catalog/pet/create" class="link-none">Create</a>
-    </button>
 
+    <form name="filterForm" method="POST" class="filter-container d-flex align-items-center">
+        <div class="pill me-2 d-flex align-items-center justify-content-center">
+            <select name="species" class="pill-select" onchange="submitForm()">
+                <option value="">Species</option>
+                <% species.forEach((s, index) => { %>
+                    <option value="<%= s._id %>" <%= filterOptions?.species?.toString() == s._id.toString() ?  'selected' : ''  %>> <%= s.name %></option>
+                <% }) %>
+            </select>
+        </div>
+        <div class="pill me-2"></div>
+        <div class="pill me-2"></div>
+    </form>
     <% if(pets.length) { %>
-        <% pets.forEach((pet,index) => {%>
-            <div class="d-flex align-items-end mt-2">
-                <h3 class="me-5"><a class="link-none" href="<%=pet.url%>"> <%= pet.name %> </a></h3>
-                <span><%= pet.gender %></span>
-            </div>
-            <h5 class="ms-2">Species: <a href="<%= pet.species.url%>"><%= pet.species.name%></a></h5>
-            <div class="mt-2">
-                <%= pet.description %>
-            </div>
-            <div class="mt-2 mb-2 d-flex align-items-end">
-                <a href="<%=pet.url%>/update" class="link-none me-2">Update</a>
-                <a href="<%=pet.url%>/delete" class="link-none text-danger">Delete</a>
-            </div>
-
-            <hr>
-
-        <% })%>
+        <div class="d-grid grid-col-auto-300 mt-3 gap-3">
+            <% pets.forEach((pet,index) => {%>
+                <%- include('./partials/card', {pets: [pet] }) %>
+            <% })%>
+        </div>
     <% } else { %>
         <p class="mt-2">
             <strong>There are no pets.</strong>
@@ -30,3 +30,10 @@
         
     <% } %>
 <%- include('./partials/footer') -%>
+
+<script>
+    function submitForm() {
+        console.log("submitting form...");
+        document.filterForm.submit(); 
+    }
+</script>

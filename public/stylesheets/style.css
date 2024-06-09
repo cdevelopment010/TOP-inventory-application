@@ -147,6 +147,16 @@ footer p{
 
 }
 
+.btn.btn-link {
+  text-decoration: underline;
+  padding: 0px; 
+  display: inline;
+  background: transparent;
+  color: var(--col4-hex); 
+  border: none; 
+  outline: none; 
+}
+
 .input-group > input,
 .input-group > select {
   cursor: pointer;
@@ -194,15 +204,20 @@ footer p{
   box-shadow: 4px 4px 6px 0 rgba(0,0,0,0.25);
   border-radius: 5px;
   max-width: 300px;
-  max-height: 500px; 
+  max-height: 600px; 
   display: grid; 
-  grid-template-rows: 7fr 2fr 1fr;
+  grid-template-rows: 300px 2fr 50px;
   border: 1px solid rgba(var(--col4-rgb), 0.5);
 }
 
+.card .card-body {
+  min-height: 120px; 
+}
+
 .card .card-image {
-  height: calc(500px*0.7);
+  height: 300px;
   border-radius: 5px 5px 0 0;
+  overflow: hidden;
 }
 .card .card-image img {
   border-radius: 5px 5px 0 0;
@@ -212,6 +227,29 @@ footer p{
   overflow: hidden
 }
 
+.card.expanded {
+  max-height: fit-content; 
+}
+
+
+.pill {
+  border-radius: 20px;
+  width: 100px; 
+  height: 1.5rem;
+  background-color: var(--col3-hex);
+  cursor: pointer;
+}
+
+.pill select {
+  outline: none; 
+  background: transparent;
+  border: none; 
+  color: white; 
+}
+
+.pill select option {
+  color: var(--col3-hex);
+}
 
 .bg-none {background: transparent}
 .d-none {display: none}
@@ -226,6 +264,7 @@ footer p{
 .justify-content-between {justify-content: space-between;}
 .justify-content-evenly {justify-content: space-evenly;}
 .justify-content-around {justify-content: space-around;}
+.align-self-end {align-self: end;}
 
 .d-grid {display: grid}
 .gap-3 {gap: 1.5rem}

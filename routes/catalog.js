@@ -36,6 +36,7 @@ router.get("/species/:id", species_controller.species_detail);
 
 //GET list of pets
 router.get("/pets", pet_controller.pet_list);
+router.post("/pets", pet_controller.pet_list)
 
 //GET for creating pet
 router.get("/pet/create", pet_controller.pet_create_get);

@@ -19,7 +19,19 @@
             </div>
 
             <div class="d-flex align-items-center justify-content-between px-2">
-                <%= pet.description.length < 30 ? pet.description : pet.description.substring(0,30).trim()+'...' %>
+                <% if (pet.description.length > 30 ) { %>
+                    <div class="description-container">
+                        <span><%= pet.description.substring(0,30).trim()+'...' %></span>
+                        <span class="btn btn-link" onclick="toggleShowMore(event)">Show More</span>
+                    </div>
+
+                    <div class="description-container d-none">
+                        <span><%= pet.description %></span>
+                        <span class="btn btn-link" onclick="toggleShowMore(event)">Show Less</span>
+                    </div>
+                <% } else {%>
+                    <span><%= pet.description %> </span>
+                <% } %>
             </div>
 
         </div>
@@ -36,3 +48,26 @@
         </div>
     </div>
 <% }) %>
+
+<script>
+    function toggleShowMore(event) {
+        let card = event.target.closest(".card"); 
+
+
+        if (card.classList.contains("expanded")) {
+            let descriptionHidden = event.target.closest(".description-container"); 
+            let descriptionVisible = event.target.closest(".description-container").previousElementSibling; 
+
+            card.classList.remove("expanded")
+            descriptionHidden.classList.add("d-none")
+            descriptionVisible.classList.remove("d-none")
+        } else {
+            let descriptionHidden = event.target.closest(".description-container"); 
+            let descriptionVisible = event.target.closest(".description-container").nextElementSibling; 
+            card.classList.add("expanded")
+            descriptionHidden.classList.add("d-none")
+            descriptionVisible.classList.remove("d-none")
+        }
+
+    }
+</script>
