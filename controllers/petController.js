@@ -17,17 +17,60 @@ cloudinary.config({
 //Display list of pets in pet
 exports.pet_list = asyncHandler(async (req, res, next) => {
     const filterOptions = req.body; 
-    
+    let originalColor = filterOptions.color; 
+
     if (filterOptions.species == "") {
         delete filterOptions.species; 
+    } 
+    if (filterOptions.num_of_legs == "") {
+        delete filterOptions.num_of_legs; 
     }
-    
+    if (filterOptions.age == ""){
+        delete filterOptions.age; 
+    } else if (filterOptions.age) {
+        const gtDate = new Date(new Date().getTime() - ((filterOptions.age*1+1 ) * 1000 * 60 * 60 * 24 * 365));
+        const ltDate = new Date(new Date().getTime() - ((filterOptions.age*1 ) * 1000 * 60 * 60 * 24 * 365));
+        console.log(gtDate, ltDate); 
+        filterOptions.dob = {$gt: gtDate.toISOString().substring(0,10), $lt: ltDate.toISOString().substring(0,10)}
+    }
+
+    if (filterOptions.color == "") {
+        delete filterOptions.color; 
+    } else {
+        filterOptions.color = new RegExp(filterOptions.color, 'i')
+    }
+
+    if (Array.isArray(filterOptions.species)) {
+        filterOptions.species = { $in: filterOptions.species }
+    } else if (filterOptions.species) {
+        filterOptions.species = [filterOptions.species ]
+    }
+
+    if (Array.isArray(filterOptions.gender)) {
+        filterOptions.gender = { $in: filterOptions.gender }
+    } else if (filterOptions.gender) {
+        filterOptions.gender = [filterOptions.gender ]
+    }
+
     console.log(filterOptions);
     
     const [pets, species] = await Promise.all([
         Pet.find(filterOptions).populate("species").sort({name: 1}).exec(),
         Species.find().sort({name: 1}).exec(),
     ]) 
+
+    //remove $in filter when passing through to view
+    if (filterOptions?.species?.$in) {
+        filterOptions.species = filterOptions.species.$in;
+    }
+    if (filterOptions?.gender?.$in) {
+        filterOptions.gender = filterOptions.gender.$in;
+    }
+
+    if (filterOptions?.color) {
+        filterOptions.color = originalColor;
+    }
+    
 
     res.render("pet_list", {
         title: "Pets",

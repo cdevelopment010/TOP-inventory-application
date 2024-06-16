@@ -1,53 +1,50 @@
 <% pets.forEach((pet, index) => { %>
     <div class="card">
-        <div class="card-image">
-            <img src="<%= pet.imageurl.url %>" class="">
-        </div>
+        <a href="<%= pet.url %>">
+            <div class="card-image">
+                <img src="<%= pet.imageurl.url %>" alt="Image of <%= pet.name %>" />
+            </div>
+        </a>
         <div class="card-body">
             <div class="card-body-header d-flex align-items-center justify-content-between p-2">
-                <span class="fw-bold" title="Pet name"><%=pet.name%></span>
-                <span class="fw-bold" title="Pet species"><%=pet.species.name%></span>
+                <span class="fw-bold" title="Pet name"><%= pet.name %></span>
+                <span class="fw-bold" title="Pet species"><%= pet.species.name %></span>
             </div>
             <div class="d-flex align-items-center justify-content-between px-2">
                 <span title="Pet gender"><%= pet.gender %></span>
-                <!-- <span><%= pet.num_of_legs %></span> -->
             </div>
             <div class="d-flex align-items-center justify-content-between px-2">
                 <span title="Pet color"><%= pet.color %></span>
                 <span title="Pet age"><%= pet.age %></span>
-                <!-- <span><%= new Date(pet.dob).toLocaleDateString() %></span> -->
             </div>
-
             <div class="d-flex align-items-center justify-content-between px-2">
-                <% if (pet.description.length > 30 ) { %>
+                <% if (pet.description.length > 30) { %>
                     <div class="description-container">
-                        <span><%= pet.description.substring(0,30).trim()+'...' %></span>
+                        <span><%= pet.description.substring(0, 30).trim() + '...' %></span>
                         <span class="btn btn-link" onclick="toggleShowMore(event)">Show More</span>
                     </div>
-
                     <div class="description-container d-none">
                         <span><%= pet.description %></span>
                         <span class="btn btn-link" onclick="toggleShowMore(event)">Show Less</span>
                     </div>
-                <% } else {%>
-                    <span><%= pet.description %> </span>
+                <% } else { %>
+                    <span><%= pet.description %></span>
                 <% } %>
             </div>
-
         </div>
-
         <div class="card-footer">
             <div class="d-flex align-items-center justify-content-between px-2">
-                <a class="link-none" href="<%=pet.url%>/delete">
+                <a class="link-none" href="<%= pet.url %>/delete">
                     <button class="btn btn-danger">Delete</button>
                 </a>
-                <a class="link-none" href="<%=pet.url%>/update">
+                <a class="link-none" href="<%= pet.url %>/update">
                     <button class="btn">Update</button>
                 </a>
             </div>
         </div>
     </div>
 <% }) %>
+
 
 <script>
     function toggleShowMore(event) {

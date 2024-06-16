@@ -19,7 +19,7 @@ PetSchema.virtual("url").get(function() {
 })
 
 PetSchema.virtual("age").get(function() {
-    return Math.floor((new Date().getTime() - new Date(this.dob).getTime())   / (1000 * 60 * 60 * 24 * 365))
+    return this.dob ? Math.floor((new Date().getTime() - new Date(this.dob).getTime())   / (1000 * 60 * 60 * 24 * 365)) : '';
 })
 
 module.exports = mongoose.model("Pet", PetSchema);

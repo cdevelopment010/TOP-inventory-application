@@ -63,7 +63,7 @@ header, footer {
   display: flex; 
   align-items: center; 
   justify-content: space-between;
-  padding: 1rem min(78rem, 10vw);
+  padding: 1rem min(10rem, 20vw);
   background: #0D1B2A;
   color: white; 
 }
@@ -234,10 +234,12 @@ footer p{
 
 .pill {
   border-radius: 20px;
-  width: 100px; 
+  /* width: 100%;  */
+  padding: 8px 10px;
   height: 1.5rem;
   background-color: var(--col3-hex);
   cursor: pointer;
+  color: white;
 }
 
 .pill select {
@@ -250,6 +252,20 @@ footer p{
 .pill select option {
   color: var(--col3-hex);
 }
+
+#filter-form.filter-closed {
+  display: none; 
+}
+
+#filter-form.filter-closed.filter-show {
+  display: flex
+}
+
+
+.list-style-none {
+  list-style-type: none;
+}
+
 
 .bg-none {background: transparent}
 .d-none {display: none}
@@ -265,6 +281,7 @@ footer p{
 .justify-content-evenly {justify-content: space-evenly;}
 .justify-content-around {justify-content: space-around;}
 .align-self-end {align-self: end;}
+.flex-wrap {flex-wrap: wrap;}
 
 .d-grid {display: grid}
 .gap-3 {gap: 1.5rem}

@@ -4,23 +4,81 @@
     <a href="/catalog/pet/create" class="link-none mt-2 btn">Create</a>
 </div>
 
-
-    <form name="filterForm" method="POST" class="filter-container d-flex align-items-center">
-        <div class="pill me-2 d-flex align-items-center justify-content-center">
-            <select name="species" class="pill-select" onchange="submitForm()">
-                <option value="">Species</option>
-                <% species.forEach((s, index) => { %>
-                    <option value="<%= s._id %>" <%= filterOptions?.species?.toString() == s._id.toString() ?  'selected' : ''  %>> <%= s.name %></option>
-                <% }) %>
-            </select>
+    <div class="d-flex align-items-center">
+        <span onclick="toggleFilter()" style="cursor: pointer;" class="me-2"><i class="fa-solid fa-filter"></i></span>   
+        <div class="d-flex">
+            <div class="pill me-2 align-items-center justify-content-center d-none" id="filter-specieis"></div>
+            <div class="pill me-2 align-items-center justify-content-center d-none" id="filter-gender"></div>
+            <div class="pill me-2 align-items-center justify-content-center d-none" id="filter-legs"></div>
+            <div class="pill me-2 align-items-center justify-content-center d-none" id="filter-age"></div>
+            <div class="pill me-2 align-items-center justify-content-center d-none" id="filter-color"></div>
         </div>
-        <div class="pill me-2"></div>
-        <div class="pill me-2"></div>
-    </form>
+    </div>
+
+    <div id="filter-form" class="filter-closed mt-2 d-flex flex-column justify-content-between">
+        <hr />
+        <form name="filterForm" method="POST" class="filter-container mt-3 mb-3 d-flex flex-column" style="flex: 1 1 auto;">
+
+            <div class="d-flex gap-3 flex-wrap">
+                <div class="">
+                    <span>Species</span>
+    
+                    <ul class="mt-1" >
+                        <% species.forEach((s, index) => { %>
+                        <li class="list-style-none">
+                            <!--  -->
+                            <label>
+                                <input type="checkbox" onchange="populateSpeciesPill('filter-specieis')" data-name="<%= s.name %>" value="<%=s._id %>" name="species"  <%= filterOptions?.species?.filter(x => x?.toString() == s._id.toString()).length ?  'checked' : ''  %>> 
+                                <%= s.name %>
+                            </label>
+                        </li>
+                        <% }) %>
+                    </ul>
+                </div>
+
+                <div class="d-flex flex-column">
+                    <span>Gender</span>
+                    <div class="d-flex align-items-center">
+                        <input id="gender-male" type="checkbox" onchange="populateGenderPill('filter-gender', '')" name="gender" value="M" <%= filterOptions?.gender?.indexOf('M') > -1 ?  'checked' : ''  %> >
+                        <label for="gender-male" class="ms-2">Male</label>
+                    </div>
+                    <div class="d-flex align-item-center">
+                        <input id="gender-female" type="checkbox" onchange="populateGenderPill('filter-gender', '')" name="gender" value="F" <%= filterOptions?.gender?.indexOf('F') > -1 ?  'checked' : ''  %> >
+                        <label for="gender-female" class="ms-2">Female</label>
+                    </div>
+                    <div class="d-flex align-item-center">
+                        <input id="gender-unknown" type="checkbox" onchange="populateGenderPill('filter-gender', '')" name="gender" value="N/A" <%= filterOptions?.gender?.indexOf('N/A') > -1 ?  'checked' : ''  %> >
+                        <label for="gender-unknown" class="ms-2">Unknown</label>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-column" style="max-width: 100px;">
+                    <Label for="num_of_legs"># Legs</Label>
+                    <input id="num_of_legs" type="number" min="0" step="1" onchange="populateLegPill('filter-legs', 'Legs: ')" name="num_of_legs" value="<%= filterOptions?.num_of_legs %>">
+                </div>
+                <div class="d-flex flex-column" style="max-width: 100px;">
+                    <Label for="age">Age</Label>
+                    <input id="age" type="number" min="0" step="1" onchange="populateAgePill('filter-age', 'Age: ')" name="age" value="<%= filterOptions?.age %>">
+                </div>
+                <div class="d-flex flex-column" style="max-width: 100px;">
+                    <Label for="color">Color</Label>
+                    <input id="color" type="text" onchange="populateColorPill('filter-color', 'Color: ')" name="color" value="<%= filterOptions?.color %>">
+                </div>
+            </div>
+
+            <div class="d-flex align-self-end">
+                <button type="button" onclick="clearFilters()" class="btn btn-danger align-self-end">Clear Filters</button>
+                <button type="submit" class="btn align-self-end ms-2">Apply Filter</button>
+            </div>
+        </form>
+        <hr />
+    </div>
     <% if(pets.length) { %>
         <div class="d-grid grid-col-auto-300 mt-3 gap-3">
             <% pets.forEach((pet,index) => {%>
-                <%- include('./partials/card', {pets: [pet] }) %>
+                <div>
+                    <%- include('./partials/card', {pets: [pet] }) %>
+                </div>
             <% })%>
         </div>
     <% } else { %>
@@ -36,4 +94,108 @@
         console.log("submitting form...");
         document.filterForm.submit(); 
     }
+
+    function toggleFilter() {
+        const filterForm = document.getElementById('filter-form'); 
+        if (filterForm.classList.contains("filter-show")) {
+            filterForm.classList.remove("filter-show")
+        } else {
+            filterForm.classList.add("filter-show");
+        }
+    }
+
+    function populateSpeciesPill( pillId, prefix='') {
+        const pill = document.getElementById(pillId); 
+        const checkboxes = document.querySelectorAll('input[name="species"]:checked');
+        const checkedValues = Array.from(checkboxes).map(checkbox => checkbox.dataset.name);
+        
+        pill.innerHTML = ''; 
+        if (checkedValues.length) {
+            pill.classList.remove('d-none');
+            pill.classList.add('d-flex');
+            pill.innerHTML = prefix + checkedValues.join(", ");
+        } else {
+            pill.classList.add('d-none');
+            pill.classList.remove('d-flex');
+        }
+    }
+    function populateGenderPill( pillId, prefix='') {
+        const pill = document.getElementById(pillId); 
+        const checkboxes = document.querySelectorAll('input[name="gender"]:checked');
+        const checkedValues = Array.from(checkboxes).map(checkbox => checkbox.value);
+        
+        pill.innerHTML = ''; 
+        if (checkedValues.length) {
+            pill.classList.remove('d-none');
+            pill.classList.add('d-flex');
+            pill.innerHTML = prefix + checkedValues.join(", ");
+        } else {
+            pill.classList.add('d-none');
+            pill.classList.remove('d-flex');
+        }
+    }
+    function populateLegPill( pillId, prefix='') {
+        const pill = document.getElementById(pillId); 
+        const value = document.querySelector('input[name="num_of_legs"]').value
+        pill.innerHTML = ''; 
+        if (value != "") {
+            pill.classList.remove('d-none');
+            pill.classList.add('d-flex');
+            pill.innerHTML = prefix + value
+        } else {
+            pill.classList.add('d-none');
+            pill.classList.remove('d-flex');
+        }
+    }
+    function populateAgePill( pillId, prefix='') {
+        const pill = document.getElementById(pillId); 
+        const value = document.querySelector('input[name="age"]').value
+        pill.innerHTML = ''; 
+        if (value != "") {
+            pill.classList.remove('d-none');
+            pill.classList.add('d-flex');
+            pill.innerHTML = prefix + value
+        } else {
+            pill.classList.add('d-none');
+            pill.classList.remove('d-flex');
+        }
+    }
+    function populateColorPill( pillId, prefix='') {
+        const pill = document.getElementById(pillId); 
+        const value = document.querySelector('input[name="color"]').value
+        pill.innerHTML = ''; 
+        if (value != "") {
+            pill.classList.remove('d-none');
+            pill.classList.add('d-flex');
+            pill.innerHTML = prefix + value
+        } else {
+            pill.classList.add('d-none');
+            pill.classList.remove('d-flex');
+        }
+    }
+
+    function clearFilters() {
+        document.querySelector('input[name="num_of_legs"]').value = ""; 
+        document.querySelector('input[name="age"]').value = ""; 
+        document.querySelector('input[name="color"]').value = ""; 
+        const species = document.querySelectorAll('input[name="species"]')
+        species.forEach(checkbox => {
+            checkbox.checked = false;
+        })
+        const gender = document.querySelectorAll('input[name="gender"]')
+        gender.forEach(checkbox => {
+            checkbox.checked = false;
+        })
+        init();
+    }
+
+    function init() {
+        populateSpeciesPill('filter-specieis');
+        populateLegPill('filter-legs', 'Legs: ');
+        populateGenderPill('filter-gender', '');
+        populateAgePill('filter-age', 'Age: ');
+        populateColorPill('filter-color', 'Color: ');
+    }
+    init(); 
+
 </script>
