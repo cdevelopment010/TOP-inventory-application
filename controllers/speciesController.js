@@ -5,7 +5,9 @@ const { body, validationResult } = require("express-validator");
 
 
 exports.index = asyncHandler(async (req, res, next) => {
-    const popularPets = await Pet.find().limit(5).exec();
+    const popularPets = await Pet.aggregate([
+        {$sample: {size: 5}}
+    ])
 
     res.render("index", {
         title: "TOP - Inventory Application", 
