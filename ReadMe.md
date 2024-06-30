@@ -33,6 +33,6 @@ _Coming Soon!_
 - [x] Card show more (and hide) for description
 - [x] index "View more pets" btn
 - [x] Padding at the end of popular pets
-- [ ] Randomly select populate pets
+- [ ] Randomly select popular pets
 - [x] Pet card in pets doesn't link to pet detail
 - [ ] mobile styling

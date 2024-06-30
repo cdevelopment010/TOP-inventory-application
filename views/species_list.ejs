@@ -13,10 +13,10 @@
         <% species.forEach((species,index) => {%>
             <div class="d-flex align-items-end justify-content-between mt-2 ms-2">
                 
-                <a class="link-none me-5 fw-bold fs-2" href="<%=species.url%>"> <%= species.name %> </a>
-                <div class="mb-1">
-                    <a href="<%=species.url%>/update" class="link-none me-2 btn">Update</a>
-                    <a href="<%=species.url%>/delete" class="link-none  btn btn-danger">Delete</a>
+                <a class="link-none me-5 fw-bold fs-2 align-self-start-sm" href="<%=species.url%>"> <%= species.name %> </a>
+                <div class="mb-1 d-flex flex-wrap-sm gap-1">
+                    <a href="<%=species.url%>/update" class="link-none btn flex-1">Update</a>
+                    <a href="<%=species.url%>/delete" class="link-none btn btn-danger flex-1">Delete</a>
                 </div>
             </div>
             <hr class="mt-2">

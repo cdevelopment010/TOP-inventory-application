@@ -6,12 +6,12 @@
 
     <div class="d-flex align-items-center">
         <span onclick="toggleFilter()" style="cursor: pointer;" class="me-2"><i class="fa-solid fa-filter"></i></span>   
-        <div class="d-flex">
-            <div class="pill me-2 align-items-center justify-content-center d-none" id="filter-specieis"></div>
-            <div class="pill me-2 align-items-center justify-content-center d-none" id="filter-gender"></div>
-            <div class="pill me-2 align-items-center justify-content-center d-none" id="filter-legs"></div>
-            <div class="pill me-2 align-items-center justify-content-center d-none" id="filter-age"></div>
-            <div class="pill me-2 align-items-center justify-content-center d-none" id="filter-color"></div>
+        <div class="d-flex flex-wrap gap-1">
+            <div class="pill align-items-center justify-content-center d-none" id="filter-specieis"></div>
+            <div class="pill align-items-center justify-content-center d-none" id="filter-gender"></div>
+            <div class="pill align-items-center justify-content-center d-none" id="filter-legs"></div>
+            <div class="pill align-items-center justify-content-center d-none" id="filter-age"></div>
+            <div class="pill align-items-center justify-content-center d-none" id="filter-color"></div>
         </div>
     </div>
 
@@ -19,7 +19,7 @@
         <hr />
         <form name="filterForm" method="POST" class="filter-container mt-3 mb-3 d-flex flex-column" style="flex: 1 1 auto;">
 
-            <div class="d-flex gap-3 flex-wrap">
+            <div class="d-flex gap-3 flex-wrap flex-column-sm mb-2">
                 <div class="">
                     <span>Species</span>
     
@@ -66,7 +66,7 @@
                 </div>
             </div>
 
-            <div class="d-flex align-self-end">
+            <div class="d-flex align-self-end align-self-start-sm">
                 <button type="button" onclick="clearFilters()" class="btn btn-danger align-self-end">Clear Filters</button>
                 <button type="submit" class="btn align-self-end ms-2">Apply Filter</button>
             </div>
@@ -74,7 +74,7 @@
         <hr />
     </div>
     <% if(pets.length) { %>
-        <div class="d-grid grid-col-auto-300 mt-3 gap-3">
+        <div class="d-grid grid-col-auto-300 mt-3 gap-3 justify-content-center-sm mb-3">
             <% pets.forEach((pet,index) => {%>
                 <div>
                     <%- include('./partials/card', {pets: [pet] }) %>

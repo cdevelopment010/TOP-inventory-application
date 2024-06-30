@@ -2,9 +2,9 @@
 <h1 class="text-primary"><%= title %></h1>
 
 <form method="POST">
-    <div class="d-flex align-items-center justify-content-evenly mt-4 mb-4">
+    <div class="d-flex flex-column-sm gap-3 mt-4 mb-4">
         <div class="input-group">
-            <input type="text" id="name" required name="name" placeholder=" " value="<%= (species !== undefined ? species.name : '') %>" >
+            <input type="text"class="flex-1" id="name" required name="name" placeholder=" " value="<%= (species !== undefined ? species.name : '') %>" >
             <label for="name">
                 Species*
             </label>
@@ -12,7 +12,7 @@
         <div class="input-group">
             
             <!-- <input type="text" id="classification" name="classification" placeholder="Species classification" value="<%= ( species !== undefined ? species.classification : '') %>" > -->
-            <select id="classification" name="classification">
+            <select id="classification" name="classification" class="flex-1">
                 <option value=""></option>
                 <option value="Mammal" <%= species?.classification == 'Mammal' ? 'Selected' : '' %>>Mammal</option>
                 <option value="Bird" <%= species?.classification == 'Bird' ? 'Selected' : '' %>>Bird</option>

@@ -2,7 +2,7 @@
 <h1 class="text-primary"><%= title %></h1>
 
 <form method="post" enctype="multipart/form-data">
-    <div class="d-grid grid-col-3 grid-row-auto gap-3 mt-3 mb-3 align-items-center justify-content-evenly">
+    <div class="d-grid grid-col-3 grid-col-auto-sm justify-content-none-sm grid-row-auto gap-3 mt-3 mb-3 align-items-center justify-content-evenly">
         <div class="input-group">
             <input type="text" name="name" id="name"  placeholder=" " class="w-100" required value="<%- (pet ? pet.name : '') %>">
             <label for="name" >
@@ -41,7 +41,7 @@
     
         <!-- DOB -->
         <div class="input-group">
-            <input type="date" id="dob" name="dob" class="w-100" placeholder=" " value="<% pet ? pet.dob : '' %>" >
+            <input type="date" id="dob" name="dob" class="w-100" placeholder=" " value="<%= pet ? pet.dob.toISOString().substr(0,10) : '' %>" >
             <label for="dob" title="date of birth">
                 DOB*
             </label>
@@ -49,7 +49,7 @@
     
         <!-- Number of legs -->
         <div class="input-group">
-            <input type="number" id="num_of_legs" placeholder=" " class="w-100" name="num_of_legs" value="<% pet ? pet.num_of_legs : '' %>" min="0" step="1">
+            <input type="number" id="num_of_legs" placeholder=" " class="w-100" name="num_of_legs" value="<%= pet ? pet.num_of_legs : '' %>" min="0" step="1">
             <label for="num_of_legs" title="Number of legs">
                 # Legs*
             </label>
@@ -57,7 +57,7 @@
         
         <!-- Colour -->
         <div class="input-group">
-            <input type="text" id="color" name="color" placeholder=" " class="w-100" value="<% pet ? pet.color : '' %>" >
+            <input type="text" id="color" name="color" placeholder=" " class="w-100" value="<%= pet ? pet.color : '' %>" >
             <label for="color" >
                 Color*
             </label>
@@ -87,9 +87,9 @@
     </div>
 
     <% if (title.toLowerCase().search("create") >= 0 ) { %>
-        <button type="submit" class="btn mt-3">Create</button>
+        <button type="submit" class="btn mt-3 mb-3">Create</button>
     <% } else { %>
-        <button type="submit" class="btn mt-3">Update</button>
+        <button type="submit" class="btn mt-3 mb-2">Update</button>
     <% } %>
 </form>
 
