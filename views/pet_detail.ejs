@@ -1,6 +1,24 @@
 <%- include('./partials/header') -%>
-<h1 class="text-primary"><%= title %></h1>
+<h1 class="text-primary"><%= title %>: <%= pet.name %> (<%= pet.gender %>, <%= pet.species.name %> )</h1>
 
-<%- include('./partials/card', {pets: [pet] }) %>
-    
+<div class="mt-3 d-flex flex-wrap gap-3 justify-content-between">
+    <img src="<%= pet.imageurl.url %>" alt="Image of <%= pet.name %>" class="border-rounded-2"/>
+
+    <div class="d-grid grid-col-3 justify-content-between flex-1">
+        <div class="input-group">
+            <input disabled type="text" name="name" id="name"  placeholder=" " class="w-100" required value="<%- (pet ? pet.name : '') %>">
+            <label for="name" >
+                Name*
+            </label>
+        </div>
+        <div>
+            test
+        </div>
+        <div>
+            test
+        </div>
+
+    </div>
+</div>
+
 <%- include('./partials/footer') -%>

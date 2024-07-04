@@ -373,6 +373,9 @@ footer p{
 .text-primary { color: var(--col3-hex)}
 .text-danger { color: red !important;}
 
+.border-rounded-2 {
+  border-radius: 1rem;
+}
 
 @media screen and (max-width: 450px) {
 

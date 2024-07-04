@@ -5,13 +5,23 @@ const { body, validationResult } = require("express-validator");
 
 
 exports.index = asyncHandler(async (req, res, next) => {
-    const popularPets = await Pet.aggregate([
-        {$sample: {size: 5}}
-    ])
+    //aggregate returns raw data from MongoDB and virtuals aren't applied
+    const rawPets = await Pet.aggregate([
+        { $sample: { size: 5 } }
+    ]);
 
+    const petIds = rawPets.map(doc => doc._id)
+    const popularPets = await Pet.find({ _id: { $in: petIds } });
+    const [speciesCount, petCount ] = await Promise.all([
+        Species.countDocuments(),
+        Pet.countDocuments(),
+    ])
+    
     res.render("index", {
         title: "TOP - Inventory Application", 
-        popularPets: popularPets
+        popularPets: popularPets,
+        speciesCount: speciesCount,
+        petCount: petCount,
     })
 })
 
@@ -100,7 +110,7 @@ exports.species_create_post = [
 exports.species_delete_get = asyncHandler(async (req, res, next) => {
     const [species, pets] = await Promise.all([
         Species.findById(req.params.id).exec(),
-        Pet.find({ species: req.params.id}, "name description").exec(),
+        Pet.find({ species: req.params.id}).exec(),
     ])
 
     if (species == null) {

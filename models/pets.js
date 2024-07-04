@@ -16,7 +16,7 @@ const PetSchema = new Schema({
 //Virtual URL
 PetSchema.virtual("url").get(function() {
     return `/catalog/pet/${this._id}`;
-})
+}) 
 
 PetSchema.virtual("age").get(function() {
     return this.dob ? Math.floor((new Date().getTime() - new Date(this.dob).getTime())   / (1000 * 60 * 60 * 24 * 365)) : '';
