@@ -28,8 +28,8 @@ _Coming Soon!_
 - [x] Pet update - event on load to set the select label position if it has a value. 
 - [x] Pet create/update - upload image is too sensitive
 - [x] Pet DOB display date issue
-- [ ] Pet detail - card isn't a good idea. Re-design in Figma
-- [ ] Species delete when there are pets needs a bit of design work.
+- [x] Pet detail - card isn't a good idea. Re-design in Figma
+- [x] Species delete when there are pets needs a bit of design work.
 - [x] Card height/overflow. 
 - [x] Card show more (and hide) for description
 - [x] index "View more pets" btn

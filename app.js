@@ -9,7 +9,7 @@ require('dotenv').config();
 
 const mongoose = require('mongoose');
 mongoose.set("strictQuery", 'false');
-const mongoDB = process.env.DEVDB;
+const mongoDB = process.env.MONGODB;
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');

@@ -1,24 +1,49 @@
 <%- include('./partials/header') -%>
 <h1 class="text-primary"><%= title %>: <%= pet.name %> (<%= pet.gender %>, <%= pet.species.name %> )</h1>
 
-<div class="mt-3 d-flex flex-wrap gap-3 justify-content-between">
+<div class="mt-3 mb-3 align-items-top align-items-center-sm d-flex flex-wrap gap-3 justify-content-between">
     <img src="<%= pet.imageurl.url %>" alt="Image of <%= pet.name %>" class="border-rounded-2"/>
 
-    <div class="d-grid grid-col-3 justify-content-between flex-1">
-        <div class="input-group">
-            <input disabled type="text" name="name" id="name"  placeholder=" " class="w-100" required value="<%- (pet ? pet.name : '') %>">
-            <label for="name" >
-                Name*
-            </label>
+    <div class="d-grid grid-col-auto-300 gap-3 justify-content-between flex-1 mt-3">
+        <div class="position-relative">
+            <div class="pet-detail-input fs-2"><%= pet.name %></div>
+            <span class="position-absolute label">Name:</span>
         </div>
-        <div>
-            test
+        <div class="position-relative">
+            <div class="pet-detail-input fs-2"><%= pet.species.name %></div>
+            <span class="position-absolute label">Species:</span>
         </div>
-        <div>
-            test
+        <div class="position-relative">
+            <div class="pet-detail-input fs-2"><%= pet.gender %></div>
+            <span class="position-absolute label">Gender:</span>
+        </div>
+        <div class="position-relative">
+            <div class="pet-detail-input fs-2"><%= new Date(pet.dob).toDateString() %></div>
+            <span class="position-absolute label">D.O.B:</span>
+        </div>
+        <div class="position-relative">
+            <div class="pet-detail-input fs-2"><%= pet.num_of_legs || 'N/A' %></div>
+            <span class="position-absolute label"># Legs:</span>
+        </div>
+        <div class="position-relative">
+            <div class="pet-detail-input fs-2"><%= pet.color %></div>
+            <span class="position-absolute label">Color:</span>
+        </div>
+        <div class="position-relative grid-span-row-all">
+            <div class="pet-detail-input fs-2"><%= pet.description %></div>
+            <span class="position-absolute label">Description:</span>
         </div>
 
+        <div class="grid-span-row-all justify-self-end">
+            <a class="link-none" href="<%= pet.url %>/delete">
+                <button class="btn btn-danger">Delete</button>
+            </a>
+            <a class="link-none" href="<%= pet.url %>/update">
+                <button class="btn">Update</button>
+            </a>
+        </div>
     </div>
+
 </div>
 
 <%- include('./partials/footer') -%>
